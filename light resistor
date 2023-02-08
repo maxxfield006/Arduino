@@ -1,6 +1,8 @@
+//Light resistor pin
 int lightPin = A0;
 
 void setup() {
+//led pins
   pinMode(7, OUTPUT);
   pinMode(8,OUTPUT);
   
@@ -9,10 +11,10 @@ void setup() {
 }
 
 void loop() {
-  
+  //the light threshold is the light level recorded by the light resistor
   int lightThreshold = analogRead(lightPin);
 
- 
+ //when the light level is greater then 70 the red led will turn on and the blue one will be off
   if (lightThreshold > 70){
     digitalWrite(7, LOW);
     digitalWrite(8,HIGH);
@@ -20,7 +22,7 @@ void loop() {
     Serial.print("light");
   }
 
-  
+  //else if the light level is below 70 the blue one will be on
   else if (lightThreshold <= 70){
     digitalWrite(7, HIGH);
     digitalWrite(8,LOW);
