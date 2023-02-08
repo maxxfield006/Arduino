@@ -1,3 +1,4 @@
+//Pins that LED + Temp sensor are on
 int tempPin = A5;
 int ledPin = 7;
 int ledPinB = 2;
@@ -9,10 +10,12 @@ void setup() {
 }
 
 void loop() {
+  //This bit of code takes the temperature sensors input and converts it celcius
   float tempF = analogRead(tempPin);
   tempF = tempF * 0.48828125;
   float tempC = (tempF-32)*.5556;
-
+  
+  //If the temperature is above 25C it will turn the red led on, and if its below 15C it will turn the blue led on
   if (tempC >= 25) {
     digitalWrite(ledPin, HIGH);
   }
@@ -25,13 +28,4 @@ void loop() {
     digitalWrite(ledPinB, LOW);
   }
   
-  float milliS = millis();
-  float seconds = milliS / 1000;
-  delay(600);
-
-  Serial.print(tempC);
-  Serial.print(" C ");
-  Serial.print("\t");
-  Serial.print(seconds);
-  Serial.println();
 }
