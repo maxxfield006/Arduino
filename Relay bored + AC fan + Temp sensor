@@ -1,24 +1,31 @@
+//The library needed for my 8 digit display
 #include "DigitLedDisplay.h"
 
+//pins for the relay bored and temp sensor
 int relayPin = 3;
 int tempSensor = A4;
 
+//defining th pins of the display
 #define DIN 8
 #define CS 9
 #define CLK 10
 
+//creating a digital display object
 DigitLedDisplay ld = DigitLedDisplay(DIN, CS, CLK);
 
 void setup() {
   pinMode(relayPin, OUTPUT);
+  
+  //setting brightness and digit limit 
   ld.setBright(10);
   ld.setDigitLimit(2);
   Serial.begin(9600);
 }
 
 void loop() {
-  //assuming it is nc
-
+  //assuming it is nc (Normally closed)
+  
+  //changing F to C
   float temp = analogRead(tempSensor);
   temp = temp * 0.48828125;
   float tempC = (temp-32) * .5556;
@@ -26,13 +33,14 @@ void loop() {
   Serial.println(tempC);
   ld.printDigit(tempC);
   
+  //If the temperature is greater then 20C the fan will turn on
   if(tempC >= 20)
   {
-    //HIGH BECAUSE ITS NORMALLY CLOSED
-    digitalWrite(relayPin, HIGH);
+    //LOW BECAUSE ITS NORMALLY CLOSED
+    digitalWrite(relayPin, LOW);
   }
   else {
-    digitalWrite(relayPin, LOW);
+    digitalWrite(relayPin, HIGH);
   }
 
   delay(1000);
