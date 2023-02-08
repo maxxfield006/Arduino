@@ -1,3 +1,4 @@
+//pins
 int buttonPin = 1;
 int ledPin = 0;
 
@@ -10,8 +11,10 @@ void setup() {
 }
 
 void loop() {
+//reads buttons state (Either high or low)
   buttonState = digitalRead(buttonPin);
-
+  
+//if the buttons state is high and the led state is low it will set the led state to high, else low
   if (buttonState == HIGH) {
     if (ledState == LOW) {
       ledState == HIGH;
@@ -20,6 +23,7 @@ void loop() {
       ledState == LOW;
     }
   }
+  //turns on / off led depending on the led state
   digitalWrite(ledPin, ledState);
   
 }
